@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/3.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
-
+import os
 from decouple import config
 from dj_database_url import parse as dburl
 from pathlib import Path
@@ -76,10 +76,9 @@ WSGI_APPLICATION = 'eventex.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-
-default_url = 'sqlite://' / BASE_DIR / 'db.sqlite3'
+default_url_sqlite = 'sqlite:///' + os.path.join(BASE_DIR, 'db.sqlite3')
 DATABASES = {
-    'default': config('DATABASE_URL', default=default_url, cast=dburl),
+    'default': config('DATABASE_URL', default=default_url_sqlite, cast=dburl),
 }
 
 
