@@ -7,12 +7,5 @@ install:
   - pip install -q -r requirements.txt
 
 script:
-  - python manage.py migrate
   - python manage.py test
-
-deploy:
-  provider: heroku
-  app: eventex-gtz
-  run:
-    - python manage.py migrate
   
