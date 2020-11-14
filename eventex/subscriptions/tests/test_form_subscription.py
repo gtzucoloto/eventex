@@ -11,17 +11,17 @@ class SubscriptionFormTest(TestCase):
 
     def test_cpf_is_digit(self):
         """CPF must only accpet digits"""
-        form = self.make_valideted_form(cpf='ABCD5678901')
+        form = self.make_validated_form(cpf='ABCD5678901')
         self.assertFormErrorCode(form, 'cpf', 'digits')
 
     def test_cpf_have_11_digits(self):
         """CPF must have 11 digits"""
-        form = self.make_valideted_form(cpf='1234')
+        form = self.make_validated_form(cpf='1234')
         self.assertFormErrorCode(form, 'cpf', 'length')
 
     def test_must_be_capitalized(self):
         """Name must be capitalized"""
-        form = self.make_valideted_form(name='GABRIEL zucoloto')
+        form = self.make_validated_form(name='GABRIEL zucoloto')
         self.assertEqual('Gabriel Zucoloto', form.cleaned_data['name'])
 
     def assertFormErrorCode(self, form, field, code):
@@ -30,7 +30,23 @@ class SubscriptionFormTest(TestCase):
         execption = errors_list[0]
         self.assertEqual(code, execption.code)
 
-    def make_valideted_form(self, **kwargs):
+    def test_email_is_optional(self):
+        """Email is optional"""
+        form = self.make_validated_form(email='')
+        self.assertFalse(form.errors)
+
+    def test_phone_is_optional(self):
+        """Phone is optional"""
+        form = self.make_validated_form(phone='')
+        self.assertFalse(form.errors)
+
+    def test_must_inform_email_or_phone(self):
+        """Email and Phone are optional, but one must be informed"""
+        form = self.make_validated_form(email='', phone='')
+        self.assertListEqual(['__all__'], list(form.errors))
+
+
+    def make_validated_form(self, **kwargs):
         valid = dict(name='Gabriel Zucoloto', cpf='12345678901',
                      email='gtzucoloto@gmail.com', phone='27-995101402')
 
