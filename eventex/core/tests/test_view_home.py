@@ -1,5 +1,5 @@
-from django.test import TestCase
 from django.shortcuts import resolve_url as r
+from django.test import TestCase
 
 
 class HomeTest(TestCase):
@@ -16,4 +16,20 @@ class HomeTest(TestCase):
 
     def test_subscription_link(self):
         expected = f'href="{r("subscriptions:new")}"'
+        self.assertContains(self.resp, expected)
+
+    def test_speakers(self):
+        """Must show keynote speakers"""
+        contents = [
+            'Grace Hopper',
+            'http://hbn.link/hopper-pic',
+            'Alan Turing',
+            'http://hbn.link/turing-pic',
+        ]
+        for expected in contents:
+            with self.subTest():
+                self.assertContains(self.resp, expected)
+
+    def test_speaker_link(self):
+        expected = f'href="{r("home")}#speakers"'
         self.assertContains(self.resp, expected)
