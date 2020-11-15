@@ -1,11 +1,14 @@
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
+from eventex.core.models import Speaker
 
 # Create your views here.
 
 
 def home(request):
-    speackers = [
-        {'name': 'Grace Hopper', 'photo': 'http://hbn.link/hopper-pic'},
-        {'name': 'Alan Turing', 'photo': 'http://hbn.link/turing-pic'}
-    ]
+    speackers = Speaker.objects.all()
     return render(request, 'index.html', {'speackers': speackers})
+
+
+def speaker_detail(request, slug):
+    speaker = get_object_or_404(Speaker, slug=slug)
+    return render(request, 'core/speaker_detail.html', {'speaker': speaker})
