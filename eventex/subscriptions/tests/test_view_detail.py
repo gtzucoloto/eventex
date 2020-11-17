@@ -1,5 +1,5 @@
-from django.test.testcases import TestCase
 from django.shortcuts import resolve_url as r
+from django.test.testcases import TestCase
 from eventex.subscriptions.models import Subscription
 
 
@@ -18,7 +18,7 @@ class SubscriptionDetailGet(TestCase):
 
     def test_template(self):
         self.assertTemplateUsed(
-            self.resp, 'subscriptions/subscription_datail.html')
+            self.resp, 'subscriptions/subscription_detail.html')
 
     def test_context(self):
         subscription = self.resp.context['subscription']

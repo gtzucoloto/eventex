@@ -46,7 +46,7 @@ class TalkListGet(TestCase):
                 self.assertContains(self.resp, expected, count)
 
     def test_context(self):
-        varibles = ['morning_talks', 'afternoon_talks']
+        varibles = ['talk_list']
 
         for key in varibles:
             with self.subTest():
