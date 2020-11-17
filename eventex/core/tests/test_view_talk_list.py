@@ -11,7 +11,7 @@ class TalkListGet(TestCase):
                                  description='Descrição da palestra.')
 
         c1 = Course.objects.create(title='Título do Curso', start='09:00',
-                                 description='Descrição do curso.', slots=20)
+                                   description='Descrição do curso.', slots=20)
 
         speaker = Speaker.objects.create(name='Henrique Bastos',
                                          slug='henrique-bastos',
@@ -46,7 +46,7 @@ class TalkListGet(TestCase):
                 self.assertContains(self.resp, expected, count)
 
     def test_context(self):
-        varibles = ['morning_talks', 'afternoon_talks', 'courses']
+        varibles = ['morning_talks', 'afternoon_talks']
 
         for key in varibles:
             with self.subTest():
